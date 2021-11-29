@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}HomePage{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="jumbotron mt-3">
+            <h1 class="display-3">Bienvenue sur ImmoLoc</h1>
+            <p class="lead">Nous mettons en relation des futurs locataires et les propriétaires qui veulent profiter d'opportunités et gagner de l'argent en proposant leurs biens à la location pour des vacances</p>
+            <hr class="my-4">
+            <p>Vous êtes voyageur? Et vous voulez voir où vous pourrez loger pour votre prochain déplacement?</p>
+            <p class="lead">
+                <a href="{{path('ads_index')}}" class="btn btn-primary btn-lg" role="button">Voir nos annonces</a>
+            </p>
+        </div>
+        <h1 class="mt-3 mb-4">Nos biens immobilier stars</h1>
+        <div class="row">
+           {% for data in ads %}
+               {% include "ad/_ad.html.twig" with {'ad': data.annonce} %}
+           {% endfor %}
+        </div>
+        <h1 class="mt-3 mb-4">Nos propriétaires stars</h1>
+        <div class="row">
+            {% for data in users %}
+                <div class="col-md-6">
+                    <div class="card border-secondary mb-3">
+                        <div class="card-body text-center">
+                            <h4 class="card-title">{{data.user.fullName}}</h4>
+                            <hr>
+                            <div class="card-text">
+                                {% if data.user.picture %}
+                                    <img src="/uploads/{{data.user.picture}}" class="avatar float-left mr-3" alt="avatar de {{data.user.fullName}}">
+                                {% else %}
+                                     <img src="http://placehold.it/300x300" class="avatar float-left mr-3" alt="avatar de {{data.user.fullName}}">
+                                {% endif %}
+                                <p>{{data.user.introduction}}</p>
+                                <a href="{{path('user_show',{'slug': data.user.slug})}}" class="btn btn-success float-right">En savoir plus</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

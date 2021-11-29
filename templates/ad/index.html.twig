@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nos annonces{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            {% for ad in pagination.data %}
+               {% include 'ad/_ad.html.twig'%}
+            {% endfor %}
+        </div>
+        {{pagination.display()}}
+    </div>
+{% endblock %}
